@@ -1,0 +1,93 @@
+# Attma Router — Axolotl config for Muse Glimmer 30B, QLoRA SFT
+# PRIMARY training path. Research-use only.
+#
+# Base model (decision, 20 Nov 2026 research):
+#   meta-models/Muse-Glimmer-30B — ~29.6B dense, Apache 2.0, 131k context,
+#   distilled from Muse Spark, purpose-built for agentic/tool use.
+#   MCP Atlas 75.5, IFBench 77.0, WMDP Bio 86.5% (vendor-reported).
+#   Free LoRA SFT on Fireworks ONLY until 30 Nov 2026 — jobs started
+#   before 2026-12-01 00:00 Pacific. That deadline is the whole bet:
+#   start the job before it, or use the paid rate / Qwen fallback.
+#
+# Framework: Axolotl — Meta's official Glimmer post-training recipe
+# (Axolotl 0.19.0). QLoRA ~27 GiB VRAM. Verify this config against
+# Meta's Axolotl cookbook before running; Glimmer is a new architecture
+# (dense transformer + 1.8B ViT vision encoder, gated attention) and is
+# NOT a Llama/Qwen drop-in. Vision tower is frozen / ignored here:
+# the router is text-only.
+#
+# Run (after installing Axolotl, see requirements.txt):
+#   axolotl train axolotl_glimmer_router.yaml
+#   # then evaluate with experiments/attma-router/run_router_bench.py
+#   # and export the adapter with firectl / axolotl, promptly:
+#   # Fireworks serverless checkpoints are kept ~30 days.
+
+base_model: meta-models/Muse-Glimmer-30B
+model_type: AutoModelForCausalLM
+tokenizer_type: AutoTokenizer
+# Glimmer reasoning strength must be identical in train and eval.
+# Fixed to "low" for a deterministic router (fast, least verbose).
+# If you change it here, change it in run_router_bench.py too.
+# (Axolotl passes the chat template through; the system prompt in
+#  the training data carries the reasoning-strength string.)
+strict: false
+
+# --- LoRA (QLoRA) ---
+load_in_4bit: true
+adapter: qlora
+lora_r: 16
+lora_alpha: 16
+lora_dropout: 0.0
+lora_target_linear: true
+# All linear modules: q/k/v/o + gate/up/down. Do NOT target the
+# vision tower for this text-only router.
+lora_modules_to_save: null
+
+# --- Data ---
+# SFT data in chat format: system + user prompt, assistant = strict JSON.
+# Completion-only loss: loss is computed on the assistant JSON only,
+# never on the prompt. Build the chat-format file from the router
+# dataset before training:
+#   python datasets/build_router_dataset.py
+#   python experiments/attma-router/build_sft_data.py  # TODO in v0.3
+#   (until then, convert datasets/attma-router-v1/data/train.jsonl
+#    to chat format with the system prompt from run_router_bench.py)
+datasets:
+  - path: datasets/attma-router-v1/data/train.jsonl
+    type: chat_template
+    chat_template: jinja
+    field_messages: messages
+    message_field_role: role
+    message_field_content: content
+    message_field_training: train
+    message_property_mappings:
+      role: role
+      content: content
+
+# --- Training ---
+sequence_len: 2048
+sample_packing: false
+eval_batch_size: 2
+micro_batch_size: 2
+gradient_accumulation_steps: 8
+# Effective batch = 2 x 8 = 16.
+num_epochs: 3
+optimizer: paged_adamw_8bit
+lr_scheduler: cosine
+learning_rate: 0.0002
+# lr 2e-4, warmup 3%, bf16, gradient checkpointing on.
+warmup_steps: 10
+warmup_ratio: 0.03
+bf16: true
+gradient_checkpointing: true
+logging_steps: 10
+save_steps: 100
+save_total_limit: 3
+eval_strategy: steps
+eval_steps: 100
+# Held-out validation split, never trained on:
+val_set_size: 0.0  # validation file is evaluated separately by the bench
+
+# --- Output ---
+output_dir: ./outputs/attma-router-v1-glimmer-lora
+# Adapter only. Export promptly; do not rely on hosted checkpoints.

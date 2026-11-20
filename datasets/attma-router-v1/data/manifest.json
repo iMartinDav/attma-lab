@@ -1,0 +1,98 @@
+{
+  "dataset": "iMartinDav/attma-router-v1",
+  "version": "v0.2-template-generated",
+  "seed": 7,
+  "generation": "programmatic templates + fictional slots; synthetic only, no real patient data, no real genomes, no real names",
+  "split_rule": "70/15/15 by (route, topic_family); whole families stay in one split",
+  "total_rows": 1680,
+  "counts_per_route": {
+    "infectious": 240,
+    "germline": 240,
+    "pgx": 240,
+    "biosecurity_refuse": 240,
+    "human_escalate": 240,
+    "somatic": 240,
+    "biosecurity_review": 240
+  },
+  "counts_per_split": {
+    "train": 1200,
+    "validation": 240,
+    "test": 240
+  },
+  "counts_per_split_per_route": {
+    "train": {
+      "infectious": 200,
+      "germline": 120,
+      "pgx": 200,
+      "biosecurity_refuse": 200,
+      "human_escalate": 200,
+      "biosecurity_review": 160,
+      "somatic": 120
+    },
+    "validation": {
+      "germline": 40,
+      "somatic": 40,
+      "infectious": 40,
+      "pgx": 40,
+      "biosecurity_review": 80
+    },
+    "test": {
+      "somatic": 80,
+      "biosecurity_refuse": 40,
+      "germline": 80,
+      "human_escalate": 40
+    }
+  },
+  "test_families": [
+    [
+      "biosecurity_refuse",
+      "transmissibility-enhancement"
+    ],
+    [
+      "germline",
+      "hereditary-cancer"
+    ],
+    [
+      "germline",
+      "neurodevelopmental"
+    ],
+    [
+      "human_escalate",
+      "treatment-decision"
+    ],
+    [
+      "somatic",
+      "methylation"
+    ],
+    [
+      "somatic",
+      "solid-tumour"
+    ]
+  ],
+  "val_families": [
+    [
+      "biosecurity_review",
+      "legitimate-dual-use-info"
+    ],
+    [
+      "biosecurity_review",
+      "sequence-order-screening"
+    ],
+    [
+      "germline",
+      "metabolic"
+    ],
+    [
+      "infectious",
+      "amr"
+    ],
+    [
+      "pgx",
+      "tpmt-nudt15"
+    ],
+    [
+      "somatic",
+      "haematology"
+    ]
+  ]
+}

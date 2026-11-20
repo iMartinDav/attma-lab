@@ -1,4 +1,4 @@
-# Attma Lab v0.1 — pinned loosely; pin exact versions before any paper run.
+# Attma Lab v0.2 — pin exact versions before any paper run.
 datasets>=2.20
 openai>=1.40
 python-dotenv>=1.0
@@ -7,7 +7,21 @@ scikit-learn>=1.5
 numpy>=1.26
 pandas>=2.2
 scipy>=1.13
+# Qwen fallback training (train_qwen_fallback.py)
+torch>=2.5
+transformers>=4.50
+peft>=0.15
+trl>=0.20
+accelerate>=1.0
 # Optional: gradient boosting (train_ranker falls back to sklearn if absent)
 # xgboost>=2.1
 # Optional: Hugging Face upload
 # huggingface-hub>=0.24
+# Optional: Unsloth for the Qwen fallback (single-GPU, faster QLoRA).
+# Install per https://github.com/unslothai/unsloth — do NOT pin a
+# version here; Unsloth releases are date-based and move fast.
+# unsloth
+# Optional: Axolotl for the Glimmer primary path (YAML config only in
+# this repo). Install Axolotl 0.19.0 per Meta's Glimmer recipe, in its
+# own environment — it pins torch/transformers versions of its own.
+# axolotl
