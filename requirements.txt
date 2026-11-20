@@ -1,0 +1,13 @@
+# Attma Lab v0.1 — pinned loosely; pin exact versions before any paper run.
+datasets>=2.20
+openai>=1.40
+python-dotenv>=1.0
+tqdm>=4.66
+scikit-learn>=1.5
+numpy>=1.26
+pandas>=2.2
+scipy>=1.13
+# Optional: gradient boosting (train_ranker falls back to sklearn if absent)
+# xgboost>=2.1
+# Optional: Hugging Face upload
+# huggingface-hub>=0.24

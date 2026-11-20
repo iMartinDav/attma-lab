@@ -1,0 +1,20 @@
+# Attma Lab — never commit real patient, clinical, or genomic data.
+.env
+.env.local
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+results.jsonl
+*.jsonl.bak
+outputs/
+runs/
+checkpoints/
+*.safetensors
+*.bin
+*.pt
+*.onnx
+.DS_Store
+.ipynb_checkpoints/
