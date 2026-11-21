@@ -26,7 +26,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 DATASETS = {
     "attma-router-v1": {
-        "hf": "iMartinDav/attma-router-v1",
+        "hf": "AttmaBio/attma-router-v1",
         # v0.3: use the pre-built, stratified family-split dataset from
         # build_router_dataset.py (1,680 rows). The 20-row seed in
         # experiments/attma-router/data/ is a schema demo only.
@@ -40,7 +40,7 @@ DATASETS = {
                       "families stay in one split",
     },
     "attma-variant-prioritisation-v1": {
-        "hf": "iMartinDav/attma-variant-prioritisation-v1",
+        "hf": "AttmaBio/attma-variant-prioritisation-v1",
         "seed": ROOT / "experiments/attma-ranker/data/variant_features_seed.csv",
         "sources": ["ClinVar (public domain / CC0 where applicable)",
                     "gnomAD (gnomad.broadinstitute.org terms)",
@@ -50,7 +50,7 @@ DATASETS = {
         "split_rule": "by gene AND by disease",
     },
     "attma-biosecurity-refusal-v1": {
-        "hf": "iMartinDav/attma-biosecurity-refusal-v1",
+        "hf": "AttmaBio/attma-biosecurity-refusal-v1",
         "seed": ROOT / "experiments/attma-biosecurity/data/refusal_seed.jsonl",
         "sources": ["synthetic prompts written for this lab (CC-BY-4.0)",
                     "topic selection inspired by BioSecBench-Refusal design "

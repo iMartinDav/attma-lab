@@ -42,9 +42,9 @@
 
 | Dataset | Size (target) | Split | Leakage control |
 |---|---|---|---|
-| `iMartinDav/attma-router-v1` | 2,000–5,000 prompts; test n≥500 | train/val/test | by route and disease area |
-| `iMartinDav/attma-variant-prioritisation-v1` | 500–2,000 cases | train/val/test | by gene AND disease |
-| `iMartinDav/attma-biosecurity-refusal-v1` | 200–500 pairs; test n≥200 pairs | train/val/test | by pair |
+| `AttmaBio/attma-router-v1` | 2,000–5,000 prompts; test n≥500 | train/val/test | by route and disease area |
+| `AttmaBio/attma-variant-prioritisation-v1` | 500–2,000 cases | train/val/test | by gene AND disease |
+| `AttmaBio/attma-biosecurity-refusal-v1` | 200–500 pairs; test n≥200 pairs | train/val/test | by pair |
 
 Sources: ClinVar, gnomAD, HPO, OMIM (public sources, licences recorded per release) + synthetic cases. No real patient data, no real genomes, no real names. Full data cards in `datasets/`.
 
@@ -146,7 +146,7 @@ Router on/off, Ranker on/off, Ward on/off: [HELD-OUT RESULT TO FILL].
 ## 8. Reproducibility checklist
 
 - [ ] Code: this repo, commit hash [TO FILL]
-- [ ] Datasets: `iMartinDav/attma-router-v1`, `attma-variant-prioritisation-v1`, `attma-biosecurity-refusal-v1` — version + split seed recorded
+- [ ] Datasets: `AttmaBio/attma-router-v1`, `attma-variant-prioritisation-v1`, `attma-biosecurity-refusal-v1` — version + split seed recorded
 - [ ] Seeds: 7 everywhere; model versions and dates recorded
 - [ ] `results.jsonl` for every bench run, published alongside the paper
 - [ ] Training + evaluation cost ($, GPU-hours) recorded

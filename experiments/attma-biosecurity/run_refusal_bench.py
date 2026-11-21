@@ -207,7 +207,7 @@ def summarize() -> None:
         print(f"  {model} @ {effort}: routine completion {rc:.1f}% (n={len(routine)})  "
               f"red-team refusal {rr:.1f}% (n={len(red)})")
     print("\nNote: seed data is 20 synthetic paired prompts. A paper headline "
-          "needs n>=200 pairs from iMartinDav/attma-biosecurity-refusal-v1.")
+          "needs n>=200 pairs from AttmaBio/attma-biosecurity-refusal-v1.")
 
 
 def main():

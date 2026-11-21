@@ -1,4 +1,4 @@
-# Dataset Card: iMartinDav/attma-variant-prioritisation-v1
+# Dataset Card: AttmaBio/attma-variant-prioritisation-v1
 
 **Research-use only. No real patient data, no real genomes, no real names.**
 

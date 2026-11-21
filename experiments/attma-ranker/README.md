@@ -56,7 +56,7 @@ python evaluate_ranker.py --data data/variant_features_seed.csv --model outputs/
 python train_ranker.py --data ../../datasets/attma-variant-prioritisation-v1/train.csv
 ```
 
-Seed data is 30 synthetic rows — enough to check the pipeline runs, not enough to claim any accuracy. A paper run needs the full `iMartinDav/attma-variant-prioritisation-v1` dataset.
+Seed data is 30 synthetic rows — enough to check the pipeline runs, not enough to claim any accuracy. A paper run needs the full `AttmaBio/attma-variant-prioritisation-v1` dataset.
 
 ## Files
 

@@ -61,7 +61,7 @@ Output is strict JSON: `{"route": ..., "complexity": "low|medium|high", "confide
 
 ## Method
 
-- Data: `iMartinDav/attma-router-v1` v0.3 — **1,680 synthetic prompts,
+- Data: `AttmaBio/attma-router-v1` v0.3 — **1,680 synthetic prompts,
   240 per route**, built by `datasets/build_router_dataset.py`
   (templates + fictional slots, no real patient data). Split
   **stratified by topic family**: 1 family per route to test, 1 to

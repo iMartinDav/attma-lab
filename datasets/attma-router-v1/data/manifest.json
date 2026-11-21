@@ -1,5 +1,5 @@
 {
-  "dataset": "iMartinDav/attma-router-v1",
+  "dataset": "AttmaBio/attma-router-v1",
   "version": "v0.3-stratified",
   "seed": 7,
   "generation": "programmatic templates + fictional slots; synthetic only, no real patient data, no real genomes, no real names",

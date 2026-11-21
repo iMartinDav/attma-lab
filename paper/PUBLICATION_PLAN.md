@@ -15,7 +15,7 @@ genomic triage, with a controlled base-model ablation*
 - Claim: a LoRA-tuned Muse Glimmer 30B routes bioinformatics
   requests (7 routes, strict JSON) better than its base model, and
   the same recipe on Qwen3-32B gives a controlled ablation.
-- Artefacts: `attma-router-v1` model + `iMartinDav/attma-router-v1`
+- Artefacts: `attma-router-v1` model + `AttmaBio/attma-router-v1`
   dataset + `run_router_bench.py` harness.
 - Numbers needed: route accuracy, exact match, JSON validity,
   McNemar vs base, bootstrap CIs, cost/latency — all on the held-out
@@ -47,7 +47,7 @@ evaluation for a clinical genomic router*
 
 - Claim: paired routine-completion AND red-team-refusal rates,
   reported together, for the Attma Router behind the Ward gates.
-- Artefacts: `iMartinDav/attma-biosecurity-refusal-v1` dataset +
+- Artefacts: `AttmaBio/attma-biosecurity-refusal-v1` dataset +
   `run_refusal_bench.py`.
 - Biosecurity caution: frame the dataset around *routing decisions*
   (which expert / tool / refusal), not around hazardous content

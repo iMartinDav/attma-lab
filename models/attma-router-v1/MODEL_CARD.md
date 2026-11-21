@@ -21,10 +21,10 @@
 | Loss | completion-only, on the assistant JSON |
 | Reasoning strength | fixed `low` in train and eval |
 | Framework | Axolotl 0.19.0 (Glimmer) / Unsloth + TRL (Qwen fallback) |
-| Training data | `iMartinDav/attma-router-v1` v0.3 — 1,680 synthetic prompts, 240/route |
+| Training data | `AttmaBio/attma-router-v1` v0.3 — 1,680 synthetic prompts, 240/route |
 | Licence | Apache 2.0 (base models are Apache 2.0; this adapter is Apache 2.0) |
 | Language | English (prompts are English; multilingual routing is out of scope) |
-| Repository | https://github.com/iMartinDav/attma-lab |
+| Repository | https://github.com/AttmaBio/attma-lab |
 
 ## Intended use
 

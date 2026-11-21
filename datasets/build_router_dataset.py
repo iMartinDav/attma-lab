@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build iMartinDav/attma-router-v1: a 500+ prompt routing dataset.
+"""Build AttmaBio/attma-router-v1: a 500+ prompt routing dataset.
 
 Original Attma Lab code. All prompts are generated programmatically from
 hand-written synthetic templates + fictional slots (diseases, genes,
@@ -647,7 +647,7 @@ def main():
         for split, s in splits.items()
     }
     manifest = {
-        "dataset": "iMartinDav/attma-router-v1",
+        "dataset": "AttmaBio/attma-router-v1",
         "version": "v0.3-stratified",
         "seed": SEED,
         "generation": "programmatic templates + fictional slots; synthetic only, "

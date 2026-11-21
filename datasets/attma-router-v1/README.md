@@ -1,4 +1,4 @@
-# Dataset Card: iMartinDav/attma-router-v1
+# Dataset Card: AttmaBio/attma-router-v1
 
 **Research-use only. No real patient data, no real genomes, no real names.**
 

@@ -112,7 +112,7 @@ def build_rows(n: int, seed: int) -> list[dict]:
     """Build rows from the local seed file, repeated/shuffled to n.
 
     The seed file is synthetic demo data (20 rows). For a paper run,
-    replace this with a load from iMartinDav/attma-router-v1 on
+    replace this with a load from AttmaBio/attma-router-v1 on
     Hugging Face, keeping the same row schema and a held-out split.
     """
     rows = [json.loads(line) for line in SEED_FILE.open() if line.strip()]
@@ -286,7 +286,7 @@ def summarize() -> None:
         print(f"\nPaired McNemar {a} vs {b}: fixed={fixed} broken={broken} "
               f"p={_mcnemar_p(fixed, broken):.3g} (exact, two-sided)")
     print("\nNote: seed data is 20 synthetic rows. A paper headline needs "
-          "n>=500 held-out prompts from iMartinDav/attma-router-v1.")
+          "n>=500 held-out prompts from AttmaBio/attma-router-v1.")
 
 
 def main():

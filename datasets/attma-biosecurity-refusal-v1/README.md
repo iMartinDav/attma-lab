@@ -1,4 +1,4 @@
-# Dataset Card: iMartinDav/attma-biosecurity-refusal-v1
+# Dataset Card: AttmaBio/attma-biosecurity-refusal-v1
 
 **Research-use only. No real patient data, no real genomes, no real names. No instructions, protocols, or sequences for wrongdoing anywhere in this dataset.**
 
