@@ -8,12 +8,14 @@ names, no real clinical text. Biosecurity red-team rows are high-level
 refusal-test *intents* only: they contain no instructions for
 wrongdoing, no protocols, and no sequences.
 
-Split: deterministic 70/15/15 by topic family (seed 7). A whole topic
-family goes to exactly one split, so the test split measures
-generalisation to unseen topic families, not memorised templates.
-This is the honest leakage control for a template-generated dataset;
-the full v1 target (2,000-5,000 prompts) is needed before the test
-split alone reaches n>=500.
+Split: stratified 1-family-per-route to test and to validation
+(seed 7). Each route has 6 topic families: 1 goes to test, 1 to
+validation, 4 stay in train, so every split covers all 7 routes
+(train 1,120 / validation 280 / test 280) while whole topic
+families still stay in exactly one split — the honest leakage
+control for a template-generated dataset. The full v1 target
+(2,000-5,000 prompts) is needed before the test split alone
+reaches n>=500.
 
 Output (datasets/attma-router-v1/data/):
     all.jsonl, train.jsonl, validation.jsonl, test.jsonl, manifest.json
@@ -582,15 +584,28 @@ def generate_rows() -> list[dict]:
 
 
 def split_by_family(rows: list[dict]):
-    """70/15/15 split by (route, topic_family): whole families stay together."""
-    families = sorted({(r["route"], r["topic_family"]) for r in rows})
-    rng = random.Random(SEED)
-    rng.shuffle(families)
-    n = len(families)
-    n_test = max(1, round(n * 0.15))
-    n_val = max(1, round(n * 0.15))
-    test_fams = set(families[:n_test])
-    val_fams = set(families[n_test:n_test + n_val])
+    """Stratified split by (route, topic_family): whole families stay together.
+
+    Each route has 6 topic families. Per route, one family is drawn
+    for test and one for validation (deterministic, seed 7 + route
+    index); the other four stay in train. That keeps the leakage
+    control — no family appears in more than one split — while
+    guaranteeing every split covers all 7 routes. The v0.2 rule
+    shuffled all 42 families together, which left infectious, pgx
+    and biosecurity_review with zero test rows and biosecurity_refuse
+    and human_escalate with zero validation rows.
+    """
+    families_by_route: dict[str, list] = defaultdict(list)
+    for route, family in sorted({(r["route"], r["topic_family"]) for r in rows}):
+        families_by_route[route].append(family)
+    test_fams: set = set()
+    val_fams: set = set()
+    for i, route in enumerate(ROUTES):
+        fams = list(families_by_route[route])
+        rng = random.Random(SEED + i)
+        rng.shuffle(fams)
+        test_fams.add((route, fams[0]))
+        val_fams.add((route, fams[1]))
     splits = {"train": [], "validation": [], "test": []}
     for r in rows:
         key = (r["route"], r["topic_family"])
@@ -633,11 +648,13 @@ def main():
     }
     manifest = {
         "dataset": "iMartinDav/attma-router-v1",
-        "version": "v0.2-template-generated",
+        "version": "v0.3-stratified",
         "seed": SEED,
         "generation": "programmatic templates + fictional slots; synthetic only, "
                       "no real patient data, no real genomes, no real names",
-        "split_rule": "70/15/15 by (route, topic_family); whole families stay in one split",
+        "split_rule": "stratified by (route, topic_family): 1 family per route "
+                      "to test, 1 per route to validation, 4 per route to train; "
+                      "whole families stay in one split",
         "total_rows": len(rows),
         "counts_per_route": dict(per_route),
         "counts_per_split": {k: len(v) for k, v in splits.items()},
@@ -653,7 +670,7 @@ def main():
     for split, s in splits.items():
         print(f"  {split}: {len(s)} rows")
     print(f"wrote {out_dir}/{{all,train,validation,test}}.jsonl + manifest.json")
-    print("NOTE: template-generated v0.2. The full v1 target (2,000-5,000 "
+    print("NOTE: template-generated v0.3. The full v1 target (2,000-5,000 "
           "prompts, test n>=500) needs human-written prompts on top of this.")
 
 

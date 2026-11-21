@@ -54,7 +54,7 @@ attma-lab/
     attma-ranker/          # tabular ranker train + evaluate + seed data
     attma-biosecurity/     # paired routine vs red-team refusal bench
   datasets/                # HF dataset cards + build scripts
-    attma-router-v1/       # v0.2: 1,680 rows, 240/route (data/ + card)
+    attma-router-v1/       # v0.3: 1,680 rows, 240/route, stratified split (data/ + card)
     attma-variant-prioritisation-v1/
     attma-biosecurity-refusal-v1/
     build_router_dataset.py
@@ -101,13 +101,14 @@ See each experiment's README for its exact question, method, metrics, and caveat
 
 **No real patient data, no real genomes, no real names anywhere in this repository.** Training and benchmark data come only from public sources (ClinVar, gnomAD, HPO, OMIM) and synthetic cases generated for this lab. Seed files are clearly labelled synthetic. Never commit real personal, clinical, or genomic data — not even in a test.
 
-## Honest status — v0.2
+## Honest status — v0.3
 
 - Repo skeleton, bench scripts, dataset cards, and paper outline: **done (v0.1)**.
 - Model choice decided, Axolotl config + Qwen fallback script, 1,680-row router dataset, model card, publication plan: **done (v0.2)**.
+- Stratified split + chat-format SFT data for the Glimmer Axolotl path: **done (v0.3, 21 Nov 2026)** — every split now covers all 7 routes (train 1,120 / validation 280 / test 280); the Axolotl config points at `train_sft.jsonl`, built by `experiments/attma-router/build_sft_data.py`.
 - Models trained: **none yet**.
 - Benchmarks run on held-out data: **none yet** — every results table in `paper/attmabench-v1.md` is empty and marked `[HELD-OUT RESULT TO FILL]`, and the model card is a template.
-- Known v0.2 dataset caveat: the test split (n=240, by family) covers only 4 of 7 routes — see `datasets/attma-router-v1/README.md`. The full v1 target is 2,000–5,000 prompts with test n≥500.
+- Remaining dataset caveat: the v0.3 test split is still only n=280 — see `datasets/attma-router-v1/README.md`. The full v1 target is 2,000–5,000 prompts with test n≥500.
 - Clinical validation, certification (CE-IVD / ISO / HDS / SOC 2): **none — roadmap targets only, not current claims**.
 
 ## Practices copied from the template

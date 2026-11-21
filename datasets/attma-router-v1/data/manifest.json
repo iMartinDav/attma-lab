@@ -1,9 +1,9 @@
 {
   "dataset": "iMartinDav/attma-router-v1",
-  "version": "v0.2-template-generated",
+  "version": "v0.3-stratified",
   "seed": 7,
   "generation": "programmatic templates + fictional slots; synthetic only, no real patient data, no real genomes, no real names",
-  "split_rule": "70/15/15 by (route, topic_family); whole families stay in one split",
+  "split_rule": "stratified by (route, topic_family): 1 family per route to test, 1 per route to validation, 4 per route to train; whole families stay in one split",
   "total_rows": 1680,
   "counts_per_route": {
     "infectious": 240,
@@ -15,32 +15,37 @@
     "biosecurity_review": 240
   },
   "counts_per_split": {
-    "train": 1200,
-    "validation": 240,
-    "test": 240
+    "train": 1120,
+    "validation": 280,
+    "test": 280
   },
   "counts_per_split_per_route": {
     "train": {
-      "infectious": 200,
-      "germline": 120,
-      "pgx": 200,
-      "biosecurity_refuse": 200,
-      "human_escalate": 200,
+      "infectious": 160,
+      "germline": 160,
+      "pgx": 160,
+      "biosecurity_refuse": 160,
+      "somatic": 160,
       "biosecurity_review": 160,
-      "somatic": 120
+      "human_escalate": 160
     },
     "validation": {
-      "germline": 40,
-      "somatic": 40,
+      "human_escalate": 40,
       "infectious": 40,
       "pgx": 40,
-      "biosecurity_review": 80
+      "biosecurity_review": 40,
+      "germline": 40,
+      "somatic": 40,
+      "biosecurity_refuse": 40
     },
     "test": {
-      "somatic": 80,
+      "infectious": 40,
+      "pgx": 40,
+      "human_escalate": 40,
       "biosecurity_refuse": 40,
-      "germline": 80,
-      "human_escalate": 40
+      "germline": 40,
+      "biosecurity_review": 40,
+      "somatic": 40
     }
   },
   "test_families": [
@@ -49,8 +54,8 @@
       "transmissibility-enhancement"
     ],
     [
-      "germline",
-      "hereditary-cancer"
+      "biosecurity_review",
+      "export-control"
     ],
     [
       "germline",
@@ -58,11 +63,15 @@
     ],
     [
       "human_escalate",
-      "treatment-decision"
+      "signed-report-change"
     ],
     [
-      "somatic",
-      "methylation"
+      "infectious",
+      "viral-respiratory"
+    ],
+    [
+      "pgx",
+      "dpyd"
     ],
     [
       "somatic",
@@ -71,16 +80,20 @@
   ],
   "val_families": [
     [
-      "biosecurity_review",
-      "legitimate-dual-use-info"
+      "biosecurity_refuse",
+      "evasion-of-screening"
     ],
     [
       "biosecurity_review",
-      "sequence-order-screening"
+      "bsl-guidance"
     ],
     [
       "germline",
-      "metabolic"
+      "cardiac"
+    ],
+    [
+      "human_escalate",
+      "consent-ethics"
     ],
     [
       "infectious",
@@ -92,7 +105,7 @@
     ],
     [
       "somatic",
-      "haematology"
+      "methylation"
     ]
   ]
 }

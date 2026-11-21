@@ -19,7 +19,8 @@ genomic triage, with a controlled base-model ablation*
   dataset + `run_router_bench.py` harness.
 - Numbers needed: route accuracy, exact match, JSON validity,
   McNemar vs base, bootstrap CIs, cost/latency — all on the held-out
-  test split. v0.2 test is n=240 by family; the paper's headline
+  test split. v0.3 test is n=280, stratified by family, all 7 routes;
+  the paper's headline
   needs the full v1 test (target n≥500).
 - Template to follow: Kolluru & Duvvarapu, *Small Language Models
   for Inference-Capability Routing* (arXiv:2611.16414) — small router,
@@ -108,7 +109,7 @@ router at 1/3 the cost on *our* benchmark" is a paper;
 |---|---|
 | **Before 30 Nov 2026** | Start the Glimmer LoRA SFT job on Fireworks (free window). This is the hard deadline — everything else can slip, this cannot. |
 | Dec 2026 | Qwen3-32B fallback run (Kaggle / Modal / RunPod) + base-vs-tuned evals. Fill the model card. |
-| Jan 2027 | Paper 1 draft on arXiv (v1), with the v0.2/v1 dataset released on HF. |
+| Jan 2027 | Paper 1 draft on arXiv (v1), with the v0.3/v1 dataset released on HF. |
 | Feb–Mar 2027 | Paper 2 (AttmaBench) + Paper 3 (refusal) drafts; workshop submissions. |
 
 ## References (to cite, not to copy)

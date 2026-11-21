@@ -49,11 +49,14 @@ lora_modules_to_save: null
 # never on the prompt. Build the chat-format file from the router
 # dataset before training:
 #   python datasets/build_router_dataset.py
-#   python experiments/attma-router/build_sft_data.py  # TODO in v0.3
-#   (until then, convert datasets/attma-router-v1/data/train.jsonl
-#    to chat format with the system prompt from run_router_bench.py)
+#   python experiments/attma-router/build_sft_data.py
+# That writes datasets/attma-router-v1/data/{train,validation,test}_sft.jsonl.
+# The system prompt in the SFT data is verbatim the bench prompt in
+# run_router_bench.py:SYSTEM (build_sft_data.py --verify-only checks).
+# Validation/test SFT files exist for inspection; the bench evaluates
+# the validation split separately, so only train is listed here.
 datasets:
-  - path: datasets/attma-router-v1/data/train.jsonl
+  - path: datasets/attma-router-v1/data/train_sft.jsonl
     type: chat_template
     chat_template: jinja
     field_messages: messages

@@ -61,13 +61,16 @@ Output is strict JSON: `{"route": ..., "complexity": "low|medium|high", "confide
 
 ## Method
 
-- Data: `iMartinDav/attma-router-v1` v0.2 — **1,680 synthetic prompts,
+- Data: `iMartinDav/attma-router-v1` v0.3 — **1,680 synthetic prompts,
   240 per route**, built by `datasets/build_router_dataset.py`
-  (templates + fictional slots, no real patient data). Split 70/15/15
-  **by topic family**: train 1,200 / validation 240 / test 240.
+  (templates + fictional slots, no real patient data). Split
+  **stratified by topic family**: 1 family per route to test, 1 to
+  validation, 4 to train — train 1,120 / validation 280 / test 280,
+  every split covering all 7 routes. Chat-format SFT files
+  (`*_sft.jsonl`) are built by `experiments/attma-router/build_sft_data.py`.
   Whole families stay in one split, so test measures generalisation
   to unseen families. The full v1 target is 2,000–5,000 prompts with
-  test n≥500; v0.2 is the training-ready seed, not the final dataset.
+  test n≥500; v0.3 is the training-ready seed, not the final dataset.
 - Evaluation: `run_router_bench.py` — deterministic grading (route
   accuracy + exact match on all JSON fields), fixed seed 7, resumable
   `results.jsonl`, `--summarize-only` mode, paired McNemar vs base.
@@ -84,7 +87,7 @@ Output is strict JSON: `{"route": ..., "complexity": "low|medium|high", "confide
 
 ## Caveat — read this before quoting any number
 
-The template result this copies (route accuracy 22.5% → 90.0%) was measured on **n=40 held-out prompts**. That is a demo, not a paper. Do not quote it as an Attma result. Attma's headline router number must be measured on the held-out test split (v0.2: n=240, by family), with a confidence interval — and on n≥500 once the full v1 dataset exists.
+The template result this copies (route accuracy 22.5% → 90.0%) was measured on **n=40 held-out prompts**. That is a demo, not a paper. Do not quote it as an Attma result. Attma's headline router number must be measured on the held-out test split (v0.3: n=280, all 7 routes, by family), with a confidence interval — and on n≥500 once the full v1 dataset exists.
 
 ## How to run
 
@@ -93,7 +96,8 @@ The template result this copies (route accuracy 22.5% → 90.0%) was measured on
 python datasets/build_router_dataset.py
 
 # 2a. PRIMARY — Glimmer on Fireworks, BEFORE 30 Nov 2026
-#     (convert train.jsonl to chat format first; see the yaml header)
+#     (build the chat-format SFT file first)
+python experiments/attma-router/build_sft_data.py
 axolotl train experiments/attma-router/axolotl_glimmer_router.yaml
 
 # 2b. FALLBACK — Qwen3-32B, local / Kaggle / Modal / RunPod
@@ -116,6 +120,7 @@ to your deployed LoRA before running the tuned model.
 
 | File | What it is |
 |---|---|
+| `build_sft_data.py` | NEW in v0.3: converts router rows to Axolotl chat-format SFT (`*_sft.jsonl`), system prompt verified verbatim against the bench |
 | `run_router_bench.py` | Router bench CLI: sampling, Fireworks calls, deterministic grading, resumable JSONL |
 | `attma_router_train.ipynb` | LoRA SFT notebook: build data, train, deploy, evaluate, delete deployment |
 | `axolotl_glimmer_router.yaml` | PRIMARY training config: Glimmer 30B QLoRA SFT (Axolotl) |
